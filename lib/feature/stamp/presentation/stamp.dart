@@ -24,6 +24,7 @@ class StampScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Stamp Painting'),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

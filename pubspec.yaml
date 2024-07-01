@@ -16,6 +16,7 @@ dependencies:
   get:
   flutter_svg:
   intl:
+  auto_size_text: 
 
 dev_dependencies:
   flutter_test:

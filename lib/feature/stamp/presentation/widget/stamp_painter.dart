@@ -28,11 +28,11 @@ class StampPainter extends CustomPainter {
   void drawTextAlongPath(Canvas canvas, Size size, String text, Paint paint, double startAngle, double sweepAngle, [bool reverse = false]) {
     const TextStyle textStyle = TextStyle(
       color: Colors.white,
-      fontSize: 18,
+      fontSize: 8,
       fontWeight: FontWeight.bold,
     );
 
-    final double radius = size.width / 2 - 26;
+    final double radius = size.width / 2 - 16;
     final double totalAngle = sweepAngle;
     final double charAngle = totalAngle / text.length;
     double angle = startAngle;

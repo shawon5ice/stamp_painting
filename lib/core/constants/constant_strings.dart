@@ -18,10 +18,10 @@ class ConstantStrings {
     "Boat/Ship",
     "Bus",
     "Car",
+    "Walk",
     "Motor Cycle",
     "Push Bike",
     "Train",
-    "Walk",
   ];
 
   static const countries = [

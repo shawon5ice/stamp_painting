@@ -1,8 +1,9 @@
 class StampBackgroundModel{
+  final int id;
   final String label;
   final String assetLink;
 
-  StampBackgroundModel({required this.label, required this.assetLink});
+  StampBackgroundModel({required this.id, required this.label, required this.assetLink});
 
   @override
   bool operator ==(Object other) {

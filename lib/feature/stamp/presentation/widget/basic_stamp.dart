@@ -16,42 +16,43 @@ class BasicStamp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return GetBuilder<StampController>(
       id: 'basic_stamp',
       builder: (controller) {
         return SizedBox(
-          width: 200,
-          height: 200,
+          width: width * 0.3,
+          height: width * 0.3,
           child: Stack(
             fit: StackFit.expand,
             children: [
               SvgPicture.asset(
                 'assets/passport/base_stamp/basic_stamp.svg',
-                width: 150,
-                height: 150,
+                width: width * 0.25,
+                height: width * 0.25,
                 color: ConstantColors
                     .stampColors[controller.selectedColorIndex],
               ),
               if (controller.travelModeAsset != null)
                 Positioned(
-                  top: 48,
-                  left: 100 - 36,
+                  top: width * .06,
+                  left: width * .1,
                   child: SvgPicture.string(
                     controller.travelModeAsset!,
-                    height: 48,
-                    width: 48,
-                    fit: BoxFit.fill,
+                    height: width * .08,
+                    width: width * .08,
+                    fit: BoxFit.contain,
                   ),
                 ),
               Center(
                 child: Transform.translate(
-                  offset: const Offset(0, 10),
+                  offset: const Offset(0, 6),
                   child: Transform.rotate(
                     angle: -pi / 9,
                     child: Text(
                       controller.selectedWay ?? '',
                       style: const TextStyle(
-                        fontSize: 32,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -62,9 +63,7 @@ class BasicStamp extends StatelessWidget {
               CustomPaint(
                 painter: StampPainter(
                   country: controller.selectedCountry ?? '',
-                  city: controller.cityName.length > 14
-                      ? ''
-                      : controller.cityName,
+                  city: controller.cityName,
                 ),
               )
             ],

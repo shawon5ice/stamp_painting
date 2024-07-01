@@ -73,14 +73,7 @@ class StampScreen extends StatelessWidget {
                 CustomDropDownWidget(
                   onChange: (country) {
                     controller.selectedCountryForDynamicStamp = country;
-                    if (country != null && country.length > 12) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                              "Your selected country is too large to preview")));
-                      controller.selectedCountry = '';
-                    } else {
-                      controller.selectedCountry = country;
-                    }
+                    controller.selectedCountry = country;
                     controller.loadTravelModeAsset();
                     controller.update(["dynamic_stamp"]);
                   },
@@ -99,11 +92,6 @@ class StampScreen extends StatelessWidget {
                   label: "City Name",
                   onChanged: (value) {
                     controller.cityName = value;
-                    if (value.length > 14) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                              "Your written city is too large to preview")));
-                    }
                     controller.loadTravelModeAsset();
                   },
                 ),
@@ -132,7 +120,13 @@ class StampScreen extends StatelessWidget {
                 addHeight(100),
                 const BasicStamp(),
                 addHeight(100),
-                const DynamicStamp()
+                Row(
+                  children: [
+                    const DynamicStamp(),
+                    Spacer(),
+                    const DynamicStamp(),
+                  ],
+                )
               ],
             ),
           ),

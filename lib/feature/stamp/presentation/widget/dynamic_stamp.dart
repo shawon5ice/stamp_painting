@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 
 import '../../../../core/constants/constant_colors.dart';
 import '../stamp_controller.dart';
+import 'country_name_widget.dart';
+import 'date_and_city_name_widget.dart';
+import 'stamp_background_asset.dart';
 
 class DynamicStamp extends StatelessWidget {
   const DynamicStamp({
@@ -16,438 +19,75 @@ class DynamicStamp extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
 
     return GetBuilder<StampController>(
-        id: "dynamic_stamp",
-        builder: (controller) {
-          switch (controller.selectedStampBackground?.id) {
-            case 0:
-            case 1:
-            case 2:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-              return SizedBox(
-                height: width * .4,
-                width: width * .4,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: controller.stampAsset != null
-                          ? SvgPicture.string(
-                              controller.stampAsset!,
-                              // width: 150,
-                              // height: 150,
-                              color: ConstantColors
-                                  .stampColors[controller.selectedColorIndex],
-                              fit: BoxFit.contain,
-                            )
-                          : const SizedBox.shrink(),
-                    ),
-                    if (controller.selectedCountryForDynamicStamp != null)
-                      Align(
-                          alignment: Alignment.topCenter,
-                          child: Transform.translate(
-                              offset:
-                                  Offset(0, width *.08),
-                              child: SizedBox(
-                                width: controller.isTriangle
-                                    ? 50
-                                    : double.infinity,
-                                child: AutoSizeText(
-                                  minFontSize: 6,
-                                  maxFontSize: 9,
-                                  controller.selectedCountryForDynamicStamp!,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ))),
-                    Positioned.fill(
-                      top: controller.isTriangle ? 30 : 0,
-                      child: Center(
-                        child: SizedBox(
-                          width: controller.isTriangle ? 88 : width * .2,
-                          height: controller.isTriangle ? 88 : width * .2,
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              if (controller.stampAssetMain != null)
-                                SvgPicture.string(
-                                  controller.stampAssetMain!,
-                                  // color: colors[selectedColorIndex],
-                                ),
-                              if (controller.travelModeAsset != null)
-                                Positioned(
-                                  top: 10,
-                                  left: 25,
-                                  child: SvgPicture.string(
-                                    controller.travelModeAsset!,
-                                    height: 24,
-                                    width: 24,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              Center(
-                                child: Transform.translate(
-                                  offset: const Offset(0, 2.5),
-                                  child: Transform.rotate(
-                                    angle: -(.1185079),
-                                    child: Container(
-                                      width: 128,
-                                      height: 24,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: ConstantColors.stampColors[
-                                            controller.selectedColorIndex],
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          controller.selectedWay ?? '',
-                                          style: TextStyle(
-                                            fontSize:
-                                                controller.isTriangle ? 10 : 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Transform.translate(
-                        offset: Offset(0, - (width *.07)),
-                        child: SizedBox(
-                          width: width * .2,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (controller.selectedDate != null)
-                                AutoSizeText(
-                                  minFontSize: 6,
-                                  maxFontSize: 7,
-                                  controller.selectedDate!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              AutoSizeText(
-                                minFontSize: 6,
-                                maxFontSize: 7,
-                                controller.cityName,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            case 3:
-              return SizedBox(
-                height: width * .4,
-                width:  width * .35,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: controller.stampAsset != null
-                          ? SvgPicture.string(
-                        controller.stampAsset!,
-                        // width: 150,
-                        // height: 150,
-                        color: ConstantColors
-                            .stampColors[controller.selectedColorIndex],
-                        fit: BoxFit.fill,
-                      )
-                          : const SizedBox.shrink(),
-                    ),
-                    if (controller.selectedCountryForDynamicStamp != null)
-                      Align(
-                          alignment: Alignment.topCenter,
-                          child: Transform.translate(
-                              offset: Offset(0, width*.06),
-                              child: AutoSizeText(
-                                minFontSize: 6,
-                                maxFontSize: 9,
-                                controller.selectedCountryForDynamicStamp!,
-                                textAlign: TextAlign.center,
-                                maxLines: 1,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.w600),
-                              ))),
-                    Positioned.fill(
-                      top:  0,
-                      child: Center(
-                        child: SizedBox(
-                          width:  width * .2,
-                          height: width * .2,
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              if (controller.stampAssetMain != null)
-                                SvgPicture.string(
-                                  controller.stampAssetMain!,
-                                  // color: colors[selectedColorIndex],
-                                ),
-                              if (controller.travelModeAsset != null)
-                                Positioned(
-                                  top: 10,
-                                  left: 25,
-                                  child: SvgPicture.string(
-                                    controller.travelModeAsset!,
-                                    height: 24,
-                                    width: 24,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              Center(
-                                child: Transform.translate(
-                                  offset: const Offset(0, 2.5),
-                                  child: Transform.rotate(
-                                    angle: -(.1185079),
-                                    child: Container(
-                                      width: controller.isTriangle ? 128 : 128,
-                                      height: controller.isTriangle ? 18 : 24,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: ConstantColors.stampColors[
-                                        controller.selectedColorIndex],
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          controller.selectedWay ?? '',
-                                          style: TextStyle(
-                                            fontSize:
-                                            controller.isTriangle ? 10 : 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Transform.translate(
-                        offset: Offset(0, - width *.06),
-                        child: SizedBox(
-                          width: width * .2,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (controller.selectedDate != null)
-                                AutoSizeText(
-                                  minFontSize: 6,
-                                  maxFontSize: 7,
-                                  controller.selectedDate!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              AutoSizeText(
-                                minFontSize: 6,
-                                maxFontSize: 7,
-                                controller.cityName,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            case 4:
-              return SizedBox(
-                height: width * .4,
-                width: width * .45,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: controller.stampAsset != null
-                          ? SvgPicture.string(
-                        controller.stampAsset!,
-                        // width: 150,
-                        // height: 150,
-                        color: ConstantColors
-                            .stampColors[controller.selectedColorIndex],
-                        fit: BoxFit.contain,
-                      )
-                          : const SizedBox.shrink(),
-                    ),
-                    if (controller.selectedCountryForDynamicStamp != null)
-                      Align(
-                          alignment: Alignment.topCenter,
-                          child: Transform.translate(
-                              offset:
-                              Offset(0, width *.07),
-                              child: SizedBox(
-                                width: controller.isTriangle
-                                    ? 50
-                                    : double.infinity,
-                                child: AutoSizeText(
-                                  minFontSize: 6,
-                                  maxFontSize: 9,
-                                  controller.selectedCountryForDynamicStamp!,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ))),
-                    Positioned.fill(
-                      top: controller.isTriangle ? 30 : 0,
-                      child: Center(
-                        child: SizedBox(
-                          width: controller.isTriangle ? 88 : width * .2,
-                          height: controller.isTriangle ? 88 : width * .2,
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              if (controller.stampAssetMain != null)
-                                SvgPicture.string(
-                                  controller.stampAssetMain!,
-                                  // color: colors[selectedColorIndex],
-                                ),
-                              if (controller.travelModeAsset != null)
-                                Positioned(
-                                  top: 10,
-                                  left: 25,
-                                  child: SvgPicture.string(
-                                    controller.travelModeAsset!,
-                                    height: 24,
-                                    width: 24,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              Center(
-                                child: Transform.translate(
-                                  offset: const Offset(0, 2.5),
-                                  child: Transform.rotate(
-                                    angle: -(.1185079),
-                                    child: Container(
-                                      width: 128,
-                                      height: 24,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: ConstantColors.stampColors[
-                                        controller.selectedColorIndex],
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          controller.selectedWay ?? '',
-                                          style: TextStyle(
-                                            fontSize:
-                                            controller.isTriangle ? 10 : 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Transform.translate(
-                        offset: Offset(0, - (width *.06)),
-                        child: SizedBox(
-                          width: width * .2,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (controller.selectedDate != null)
-                                AutoSizeText(
-                                  minFontSize: 6,
-                                  maxFontSize: 7,
-                                  controller.selectedDate!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              AutoSizeText(
-                                minFontSize: 6,
-                                maxFontSize: 7,
-                                controller.cityName,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            case 10:
-              return SizedBox(
-                height: width * .6,
-                width: width * .45,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: controller.stampAsset != null
-                          ? SvgPicture.string(
-                        controller.stampAsset!,
-                        // width: 150,
-                        // height: 150,
-                        color: ConstantColors
-                            .stampColors[controller.selectedColorIndex],
-                        fit: BoxFit.contain,
-                      )
-                          : const SizedBox.shrink(),
-                    ),
-                    if (controller.selectedCountryForDynamicStamp != null)
-                      Align(
-                          alignment: Alignment.topCenter,
-                          child: Transform.translate(
-                              offset:
-                              Offset(0, width *.22),
-                              child: SizedBox(
-                                width: 25,
+      id: "dynamic_stamp",
+      builder: (controller) {
+        int id = controller.selectedStampBackground?.id ?? 0;
+        double bgWidth = width * .4;
+        double bgHeight = width * .4;
+        Offset countryTextYOffset = Offset(0, 0);
+        Offset dateCityTextYOffset = Offset(0, 0);
+        double stampAssetWidth = width * .2;
+        double stampAssetHeight = width * .2;
+        double stampAssetTop = 0;
+        double wayTextWidth = width * .2;
+        double wayTextHeight = width * .05;
+        double travelModeAssetTop = 25;
+        double travelModeAssetLeft = 10;
+        double travelModeAssetWidth = 24;
+        double travelModeAssetHeight = 24;
+
+        if (id <= 2 || (id >= 5 && id <= 9)) {
+          countryTextYOffset = Offset(0, width * .08);
+          travelModeAssetLeft = 25;
+          travelModeAssetTop = 10;
+          dateCityTextYOffset = Offset(0, -(width * .07));
+        } else if (id == 3) {
+          bgHeight = width * .4;
+          bgWidth = width * .35;
+          countryTextYOffset = Offset(0, width * .07);
+          travelModeAssetLeft = 25;
+          travelModeAssetTop = 10;
+          dateCityTextYOffset = Offset(0, -(width * .06));
+        } else if (id == 4) {
+          bgHeight = width * .4;
+          bgWidth = width * .45;
+          travelModeAssetLeft = width * .07;
+          travelModeAssetTop = width * .02;
+          countryTextYOffset = Offset(0, width * .07);
+          dateCityTextYOffset = Offset(0, -(width * .065));
+        } else if (id == 5) {
+          dateCityTextYOffset = Offset(0, -(width * .04));
+        } else if (id == 10) {
+          bgHeight = width * .6;
+          bgWidth = width * .45;
+          countryTextYOffset = Offset(0, width * .22);
+          dateCityTextYOffset = Offset(0, -(width * .14));
+          stampAssetHeight = width * .15;
+          stampAssetWidth = width * .15;
+          stampAssetTop = width * .1;
+          wayTextHeight = 16;
+          wayTextWidth = 128;
+          travelModeAssetLeft = 25;
+          travelModeAssetTop = 10;
+          travelModeAssetHeight = 16;
+          travelModeAssetWidth = 16;
+        }
+        return SizedBox(
+          height: bgHeight,
+          width: bgWidth,
+          child: Stack(
+            children: [
+              StampBackgroundAsset(),
+              if (controller.selectedCountryForDynamicStamp != null)
+                controller.isTriangle
+                    ? Align(
+                        alignment: Alignment.topCenter,
+                        child: Transform.translate(
+                            offset: Offset(0, width * .22),
+                            child: SizedBox(
+                              width: width * .12,
+                              height: width * .08,
+                              child: Center(
                                 child: AutoSizeText(
                                   minFontSize: 6,
                                   maxFontSize: 9,
@@ -459,367 +99,82 @@ class DynamicStamp extends StatelessWidget {
                                       fontSize: 9,
                                       fontWeight: FontWeight.w600),
                                 ),
-                              ))),
-                    Positioned.fill(
-                      top: 30,
-                      child: Center(
-                        child: SizedBox(
-                          width:  width * .15,
-                          height: width * .15,
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              if (controller.stampAssetMain != null)
-                                SvgPicture.string(
-                                  controller.stampAssetMain!,
-                                  // color: colors[selectedColorIndex],
-                                ),
-                              if (controller.travelModeAsset != null)
-                                Positioned(
-                                  top: 10,
-                                  left: 25,
-                                  child: SvgPicture.string(
-                                    controller.travelModeAsset!,
-                                    height: 16,
-                                    width: 16,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              Center(
-                                child: Transform.translate(
-                                  offset: const Offset(0, 2.5),
-                                  child: Transform.rotate(
-                                    angle: -(.1185079),
-                                    child: Container(
-                                      width: 128,
-                                      height: 16,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: ConstantColors.stampColors[
-                                        controller.selectedColorIndex],
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          controller.selectedWay ?? '',
-                                          style: TextStyle(
-                                            fontSize:
-                                            controller.isTriangle ? 10 : 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Transform.translate(
-                        offset: Offset(0, - (width *.06)),
-                        child: SizedBox(
-                          width: width * .2,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (controller.selectedDate != null)
-                                AutoSizeText(
-                                  minFontSize: 6,
-                                  maxFontSize: 7,
-                                  controller.selectedDate!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              AutoSizeText(
-                                minFontSize: 6,
-                                maxFontSize: 7,
-                                controller.cityName,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-
-          }
-
-          if (controller.selectedStampBackground?.id == 4) {
-            return SizedBox(
-              height: width * .35,
-              width: width * .35,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: controller.stampAsset != null
-                        ? SvgPicture.string(
-                            controller.stampAsset!,
-                            // width: 150,
-                            // height: 150,
-                            color: ConstantColors
-                                .stampColors[controller.selectedColorIndex],
-                            fit: BoxFit.contain,
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  if (controller.selectedCountryForDynamicStamp != null)
-                    Align(
+                            )))
+                    : Align(
                         alignment: Alignment.topCenter,
                         child: Transform.translate(
-                            offset: Offset(0, controller.isTriangle ? 80 : 20),
-                            child: SizedBox(
-                              width:
-                                  controller.isTriangle ? 50 : double.infinity,
-                              child: AutoSizeText(
-                                minFontSize: 6,
-                                maxFontSize: 9,
-                                controller.selectedCountryForDynamicStamp!,
-                                textAlign: TextAlign.center,
-                                maxLines: 1,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ))),
-                  Positioned.fill(
-                    top: controller.isTriangle ? 30 : 0,
-                    child: Center(
-                      child: SizedBox(
-                        width: controller.isTriangle ? 88 : width * .2,
-                        height: controller.isTriangle ? 88 : width * .2,
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            if (controller.stampAssetMain != null)
-                              SvgPicture.string(
-                                controller.stampAssetMain!,
-                                // color: colors[selectedColorIndex],
-                              ),
-                            if (controller.travelModeAsset != null)
-                              Positioned(
-                                top: 10,
-                                left: 25,
-                                child: SvgPicture.string(
-                                  controller.travelModeAsset!,
-                                  height: 24,
-                                  width: 24,
-                                  fit: BoxFit.fill,
+                            offset: countryTextYOffset,
+                            child: CountryNameWidget())),
+              Positioned.fill(
+                top: stampAssetTop,
+                child: Center(
+                  child: SizedBox(
+                    width: stampAssetWidth,
+                    height: stampAssetHeight,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        if (controller.stampAssetMain != null)
+                          SvgPicture.string(
+                            controller.stampAssetMain!,
+                            // color: colors[selectedColorIndex],
+                          ),
+                        if (controller.travelModeAsset != null)
+                          Positioned(
+                            top: travelModeAssetTop,
+                            left: travelModeAssetLeft,
+                            child: SvgPicture.string(
+                              controller.travelModeAsset!,
+                              height: travelModeAssetHeight,
+                              width: travelModeAssetWidth,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        Center(
+                          child: Transform.translate(
+                            offset: const Offset(0, 2.5),
+                            child: Transform.rotate(
+                              angle: -(.1185079),
+                              child: Container(
+                                width: wayTextWidth,
+                                height: wayTextHeight,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: ConstantColors.stampColors[
+                                      controller.selectedColorIndex],
+                                  border: Border.all(color: Colors.white),
                                 ),
-                              ),
-                            Center(
-                              child: Transform.translate(
-                                offset: const Offset(0, 2.5),
-                                child: Transform.rotate(
-                                  angle: -(.1185079),
-                                  child: Container(
-                                    width: controller.isTriangle ? 128 : 128,
-                                    height: controller.isTriangle ? 18 : 24,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: ConstantColors.stampColors[
-                                          controller.selectedColorIndex],
-                                      border: Border.all(color: Colors.white),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        controller.selectedWay ?? '',
-                                        style: TextStyle(
-                                          fontSize:
-                                              controller.isTriangle ? 10 : 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                child: Center(
+                                  child: Text(
+                                    controller.selectedWay ?? '',
+                                    style: TextStyle(
+                                      fontSize: controller.isTriangle ? 10 : 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Transform.translate(
-                      offset: const Offset(0, -10),
-                      child: SizedBox(
-                        width: width * .2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (controller.selectedDate != null)
-                              AutoSizeText(
-                                minFontSize: 6,
-                                maxFontSize: 7,
-                                controller.selectedDate!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            AutoSizeText(
-                              minFontSize: 6,
-                              maxFontSize: 7,
-                              controller.cityName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            );
-          }
-          return SizedBox(
-            height: width * .35,
-            width: width * .35,
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: controller.stampAsset != null
-                      ? SvgPicture.string(
-                          controller.stampAsset!,
-                          // width: 150,
-                          // height: 150,
-                          color: ConstantColors
-                              .stampColors[controller.selectedColorIndex],
-                          fit: BoxFit.contain,
-                        )
-                      : const SizedBox.shrink(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Transform.translate(
+                  offset: dateCityTextYOffset,
+                  child: DateAndCityNameWidget(width: width),
                 ),
-                if (controller.selectedCountryForDynamicStamp != null)
-                  Align(
-                      alignment: Alignment.topCenter,
-                      child: Transform.translate(
-                          offset: Offset(0, controller.isTriangle ? 80 : 20),
-                          child: SizedBox(
-                            width: controller.isTriangle ? 50 : double.infinity,
-                            child: AutoSizeText(
-                              minFontSize: 6,
-                              maxFontSize: 9,
-                              controller.selectedCountryForDynamicStamp!,
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ))),
-                Positioned.fill(
-                  top: controller.isTriangle ? 30 : 0,
-                  child: Center(
-                    child: SizedBox(
-                      width: controller.isTriangle ? 88 : width * .2,
-                      height: controller.isTriangle ? 88 : width * .2,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          if (controller.stampAssetMain != null)
-                            SvgPicture.string(
-                              controller.stampAssetMain!,
-                              // color: colors[selectedColorIndex],
-                            ),
-                          if (controller.travelModeAsset != null)
-                            Positioned(
-                              top: 10,
-                              left: 25,
-                              child: SvgPicture.string(
-                                controller.travelModeAsset!,
-                                height: 24,
-                                width: 24,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          Center(
-                            child: Transform.translate(
-                              offset: const Offset(0, 2.5),
-                              child: Transform.rotate(
-                                angle: -(.1185079),
-                                child: Container(
-                                  width: controller.isTriangle ? 128 : 128,
-                                  height: controller.isTriangle ? 18 : 24,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: ConstantColors.stampColors[
-                                        controller.selectedColorIndex],
-                                    border: Border.all(color: Colors.white),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      controller.selectedWay ?? '',
-                                      style: TextStyle(
-                                        fontSize:
-                                            controller.isTriangle ? 10 : 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Transform.translate(
-                    offset: const Offset(0, -10),
-                    child: SizedBox(
-                      width: width * .2,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (controller.selectedDate != null)
-                            AutoSizeText(
-                              minFontSize: 6,
-                              maxFontSize: 7,
-                              controller.selectedDate!,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          AutoSizeText(
-                            minFontSize: 6,
-                            maxFontSize: 7,
-                            controller.cityName,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

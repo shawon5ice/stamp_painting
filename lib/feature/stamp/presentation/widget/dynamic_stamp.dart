@@ -62,9 +62,9 @@ class DynamicStamp extends StatelessWidget {
           bgWidth = width * .45;
           countryTextYOffset = Offset(0, width * .22);
           dateCityTextYOffset = Offset(0, -(width * .14));
-          stampAssetHeight = width * .15;
-          stampAssetWidth = width * .15;
-          stampAssetTop = width * .1;
+          stampAssetHeight = width * .14;
+          stampAssetWidth = width * .14;
+          stampAssetTop = width * .11;
           wayTextHeight = 16;
           wayTextWidth = 128;
           travelModeAssetLeft = 25;
@@ -85,8 +85,8 @@ class DynamicStamp extends StatelessWidget {
                         child: Transform.translate(
                             offset: Offset(0, width * .22),
                             child: SizedBox(
-                              width: width * .12,
-                              height: width * .08,
+                              width: width * .10 > 64? width * .10 : 56,
+                              height: width * .1,
                               child: Center(
                                 child: AutoSizeText(
                                   minFontSize: 6,

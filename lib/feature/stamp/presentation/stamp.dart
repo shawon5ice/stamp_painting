@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:passport_stamp/core/constants/constant_strings.dart';
 import 'package:passport_stamp/core/helpers/size_box_extension.dart';
@@ -17,6 +20,10 @@ class StampScreen extends StatelessWidget {
   StampScreen({super.key});
 
   final StampController controller = Get.put(StampController());
+
+  GlobalKey _globalKey = GlobalKey();
+
+  String? imageData;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class StampScreen extends StatelessWidget {
                   items: controller.stampBackgrounds
                       .map(
                         (item) => dropdownMenuItemWithSvg(item),
-                      )
+                  )
                       .toList(),
                   hint: "Select Stamp Background",
                   label: "Stamp Background",
@@ -63,7 +70,7 @@ class StampScreen extends StatelessWidget {
                   items: controller.travelModes
                       .map(
                         (item) => dropdownMenuItemWithSvg(item),
-                      )
+                  )
                       .toList(),
                   hint: "Select Travel Mode",
                   label: "Travel Mode",
@@ -80,7 +87,7 @@ class StampScreen extends StatelessWidget {
                   items: ConstantStrings.countries
                       .map(
                         (item) => dropdownMenuItem(item),
-                      )
+                  )
                       .toList(),
                   hint: "Select Traveling Country",
                   label: "Country",
@@ -116,17 +123,32 @@ class StampScreen extends StatelessWidget {
                   },
                 ),
 
-
                 addHeight(100),
                 const BasicStamp(),
                 addHeight(100),
                 Row(
                   children: [
-                    const DynamicStamp(),
+                    RepaintBoundary(
+                      key: _globalKey,
+                      child: const DynamicStamp(),
+                    ),
                     Spacer(),
                     const DynamicStamp(),
                   ],
-                )
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    controller.convertWidgetToImage(_globalKey);
+                  },
+                  child: const Text('Convert into Base64'),
+                ),
+
+                GetBuilder<StampController>(
+                  id: 'converted_image',
+                  builder: (controller) {
+                  return controller.imageData != null ? Image.memory(
+                      base64Decode(controller.imageData!)) : SizedBox.shrink();
+                },),
               ],
             ),
           ),

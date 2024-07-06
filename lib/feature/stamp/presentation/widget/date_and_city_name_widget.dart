@@ -32,9 +32,10 @@ class DateAndCityNameWidget extends StatelessWidget {
               ),
             ),
           AutoSizeText(
-            minFontSize: 6,
+            minFontSize: 2,
             maxFontSize: 7,
             controller.cityName,
+            textAlign: TextAlign.center,
             style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w400),

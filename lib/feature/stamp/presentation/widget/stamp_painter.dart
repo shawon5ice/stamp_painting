@@ -17,8 +17,8 @@ class StampPainter extends CustomPainter {
 
 
     // Draw text along top and bottom of the circle
-    drawTextAlongPath(canvas, size, country, paint, -pi/1.3, pi / 2);
-    drawTextAlongPath(canvas, size, city, paint, pi /4, pi / 2, true);
+    drawTextAlongPath(canvas, size, country, paint, country.length>20? -pi/1.1:-pi/1.3, country.length>20?pi / 1: pi/2);
+    drawTextAlongPath(canvas, size, city, paint, pi /3.5, country.length>20? pi / 1.45: pi/2, true);
 
     // Draw stars as dividers
     // drawStar(canvas, size, paint, -pi /1.2, size.width / 2 - 30);
@@ -26,9 +26,9 @@ class StampPainter extends CustomPainter {
   }
 
   void drawTextAlongPath(Canvas canvas, Size size, String text, Paint paint, double startAngle, double sweepAngle, [bool reverse = false]) {
-    const TextStyle textStyle = TextStyle(
+    TextStyle textStyle = TextStyle(
       color: Colors.white,
-      fontSize: 8,
+      fontSize: country.length>20?6: 8,
       fontWeight: FontWeight.bold,
     );
 

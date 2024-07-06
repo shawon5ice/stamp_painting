@@ -35,6 +35,11 @@ class DynamicStamp extends StatelessWidget {
         double travelModeAssetLeft = 10;
         double travelModeAssetWidth = 24;
         double travelModeAssetHeight = 24;
+        double countryTextSize = 9;
+
+        if(controller.selectedCountryForDynamicStamp != null && controller.selectedCountryForDynamicStamp!.length >20){
+          countryTextSize = 5;
+        }
 
         if (id <= 2 || (id >= 5 && id <= 9)) {
           countryTextYOffset = Offset(0, width * .08);
@@ -89,8 +94,8 @@ class DynamicStamp extends StatelessWidget {
                               height: width * .1,
                               child: Center(
                                 child: AutoSizeText(
-                                  minFontSize: 6,
-                                  maxFontSize: 9,
+                                  minFontSize: 2,
+                                  maxFontSize: countryTextSize,
                                   controller.selectedCountryForDynamicStamp!,
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
@@ -105,7 +110,19 @@ class DynamicStamp extends StatelessWidget {
                         alignment: Alignment.topCenter,
                         child: Transform.translate(
                             offset: countryTextYOffset,
-                            child: CountryNameWidget())),
+                            child: SizedBox(
+                              width: stampAssetWidth,
+                              height: countryTextSize * 3,
+                              child: AutoSizeText(
+                                minFontSize: 2,
+                                maxFontSize: countryTextSize,
+                                controller.selectedCountryForDynamicStamp!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ))),
               Positioned.fill(
                 top: stampAssetTop,
                 child: Center(

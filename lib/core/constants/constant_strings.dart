@@ -44,7 +44,8 @@ class ConstantStrings {
     "Taiwan",
     "Thailand",
     "United Kingdom",
-    "United States of America"
+    "United States of America",
+    "Congo, Democratic Republic of the Congo"
   ];
 
   static const List<String> way = [

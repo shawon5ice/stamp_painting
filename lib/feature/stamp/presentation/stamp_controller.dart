@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -30,10 +31,12 @@ class StampController extends GetxController {
   String? stampAssetMain;
 
   bool isTriangle = false;
+  bool isTransparent = false;
 
   @override
   void onInit() {
     populateAssets();
+    selectedColor = Colors.black;
     selectedWay = ConstantStrings.way.first;
     loadTravelModeAsset();
     super.onInit();
@@ -42,7 +45,7 @@ class StampController extends GetxController {
   Future populateAssets() async {
     for (int i = 0; i < ConstantStrings.stampBackgroundNames.length; i++) {
       stampBackgrounds.add(StampBackgroundModel(
-          id: i,
+          id: i%11,
           label: ConstantStrings.stampBackgroundNames[i],
           assetLink: ConstantSvg.stampBackgrounds[i]));
     }
@@ -73,9 +76,9 @@ class StampController extends GetxController {
     }
 
     stampAssetMain = await rootBundle
-        .loadString('assets/passport/base_stamp/fixed_stamp.svg')
+        .loadString('assets/passport/base_stamp/${isTransparent?"fixed_stamp_transparent":"fixed_stamp"}.svg')
         .then(
-          (value) => value.replaceAll(RegExp(r'#black'), "#ffffff"),
+          (value) => isTransparent? value.replaceAll(RegExp(r'white'), "#${ConstantColors.stampColors[selectedColorIndex].value.toRadixString(16).substring(2)}"):value.replaceAll(RegExp(r'#black'), "#ffffff"),
         );
     update(["basic_stamp", "dynamic_stamp"]);
   }

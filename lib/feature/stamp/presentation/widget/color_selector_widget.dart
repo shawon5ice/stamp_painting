@@ -32,6 +32,7 @@ class ColorSelectorWidget extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 4),
                       child: GestureDetector(
                         onTap: () {
+                          controller.selectedColor = ConstantColors.stampColors[index];
                           controller.selectedColorIndex = index;
                           controller.update(["color_selection"]);
                           controller.loadTravelModeAsset();

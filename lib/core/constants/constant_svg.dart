@@ -22,6 +22,17 @@ class ConstantSvg{
     "assets/passport/stamp_background/square_shape.svg",
     "assets/passport/stamp_background/tombstone_shape.svg",
     "assets/passport/stamp_background/triangle_shape.svg",
+    "assets/passport/stamp_background/heptagonal_transparent_shape.svg",
+    "assets/passport/stamp_background/hexagonal_transparent_shape.svg",
+    "assets/passport/stamp_background/octagonal_transparent_shape.svg",
+    "assets/passport/stamp_background/oval_transparent_shape.svg",
+    "assets/passport/stamp_background/parallelogram_transparent_shape.svg",
+    "assets/passport/stamp_background/pentagon_transparent_shape.svg",
+    "assets/passport/stamp_background/rectangle_round_cnr_transparent.svg",
+    "assets/passport/stamp_background/rectangle_square_cnr_shape_transparent.svg",
+    "assets/passport/stamp_background/square_transparent_shape.svg",
+    "assets/passport/stamp_background/tombstone_transparent_shape.svg",
+    "assets/passport/stamp_background/triangle_transparent_shape.svg",
   ];
 
   static const basicStamp = "assets/passport/base_stamp/basic_stamp.svg";

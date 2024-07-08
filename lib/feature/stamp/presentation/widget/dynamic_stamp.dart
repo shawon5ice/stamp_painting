@@ -24,8 +24,8 @@ class DynamicStamp extends StatelessWidget {
         int id = controller.selectedStampBackground?.id ?? 0;
         double bgWidth = width * .4;
         double bgHeight = width * .4;
-        Offset countryTextYOffset = Offset(0, 0);
-        Offset dateCityTextYOffset = Offset(0, 0);
+        Offset countryTextYOffset = const Offset(0, 0);
+        Offset dateCityTextYOffset = const Offset(0, 0);
         double stampAssetWidth = width * .2;
         double stampAssetHeight = width * .2;
         double stampAssetTop = 0;
@@ -36,12 +36,19 @@ class DynamicStamp extends StatelessWidget {
         double travelModeAssetWidth = 24;
         double travelModeAssetHeight = 24;
         double countryTextSize = 9;
+        Color countryTextColor = Colors.white;
+        Color dateCityTextColor = Colors.white;
+
+        if(controller.isTransparent){
+          countryTextColor = controller.selectedColor;
+          dateCityTextColor = controller.selectedColor;
+        }
 
         if(controller.selectedCountryForDynamicStamp != null && controller.selectedCountryForDynamicStamp!.length >20){
           countryTextSize = 5;
         }
 
-        if (id <= 2 || (id >= 5 && id <= 9)) {
+        if (id <= 2 || (id > 5 && id <= 9)) {
           countryTextYOffset = Offset(0, width * .08);
           travelModeAssetLeft = 25;
           travelModeAssetTop = 10;
@@ -58,11 +65,10 @@ class DynamicStamp extends StatelessWidget {
           bgWidth = width * .45;
           travelModeAssetLeft = width * .07;
           travelModeAssetTop = width * .02;
-          countryTextYOffset = Offset(0, width * .07);
+          countryTextYOffset = Offset(width*.02, width * .07);
           dateCityTextYOffset = Offset(0, -(width * .065));
-        } else if (id == 5) {
-          dateCityTextYOffset = Offset(0, -(width * .04));
-        } else if (id == 10) {
+          stampAssetWidth = width * .14;
+        } else if (controller.isTriangle || id == 5) {
           bgHeight = width * .6;
           bgWidth = width * .45;
           countryTextYOffset = Offset(0, width * .22);
@@ -99,8 +105,8 @@ class DynamicStamp extends StatelessWidget {
                                   controller.selectedCountryForDynamicStamp!,
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
-                                  style: const TextStyle(
-                                      color: Colors.white,
+                                  style: TextStyle(
+                                      color: countryTextColor,
                                       fontSize: 9,
                                       fontWeight: FontWeight.w600),
                                 ),
@@ -118,8 +124,8 @@ class DynamicStamp extends StatelessWidget {
                                 maxFontSize: countryTextSize,
                                 controller.selectedCountryForDynamicStamp!,
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    color: Colors.white,
+                                style: TextStyle(
+                                    color: countryTextColor,
                                     fontWeight: FontWeight.w600),
                               ),
                             ))),
@@ -185,7 +191,33 @@ class DynamicStamp extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Transform.translate(
                   offset: dateCityTextYOffset,
-                  child: DateAndCityNameWidget(width: width),
+                  child: SizedBox(
+                    width: width * .2,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (controller.selectedDate != null)
+                          AutoSizeText(
+                            minFontSize: 6,
+                            maxFontSize: 7,
+                            controller.selectedDate!,
+                            style: TextStyle(
+                              color: dateCityTextColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        AutoSizeText(
+                          minFontSize: 2,
+                          maxFontSize: 7,
+                          controller.cityName,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: dateCityTextColor,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

@@ -43,8 +43,13 @@ class StampScreen extends StatelessWidget {
                 CustomDropDownWidget(
                   onChange: (background) {
                     controller.selectedStampBackground = background;
+                    int index = controller.stampBackgrounds.indexOf(background);
+                    controller.isTransparent = false;
+                    if(index > 10){
+                      controller.isTransparent = true;
+                    }
                     if (background != null &&
-                        background.label.toLowerCase() == 'triangle') {
+                        background.label.toLowerCase().contains('triangle')) {
                       controller.isTriangle = true;
                     } else {
                       controller.isTriangle = false;
